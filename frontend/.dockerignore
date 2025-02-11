@@ -1,0 +1,9 @@
+.vscode/
+.idea/
+.DS_Store
+.git/
+.gitignore
+*.env
+node_modules/
+build/
+package-lock.json

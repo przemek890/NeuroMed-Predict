@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = "Backend for the medical prediction"
+authors = ["Przemysław Janiszewski <przemek899@wp.pl>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pymongo = "*"
+flask = "*"
+flask-cors = "*"
+numpy = "<2"
+torch = "*"
+pandas = "*"
+pytorch-tabnet = "*"
+gunicorn = "*"
+requests = "*"
+groq = "*"
+sentence-transformers = "*"
+langdetect = "*"
+langcodes = "*"
+deep-translator = "*"
+jsonschema = "*"
+immutables = "*"
+PyJWT = "*"
+python-dotenv = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

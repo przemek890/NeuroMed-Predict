@@ -1,0 +1,15 @@
+.DS_Store
+.env/
+.idea/
+.ipynb_checkpoints/
+Datasets/
+__pycache__/
+env/
+node_modules/
+runtime-env.js
+venv/
+*.log
+*.temp
+*.tmp
+*checkpoint.ipynb
+terraform.tfvars

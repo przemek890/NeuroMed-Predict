@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "66ead3cb484e9211ff254ed8"
+  },
+  "name": "Heartdisease_prediction",
+  "precision": [
+    0.74,
+    0.78
+  ],
+  "recall": [
+    0.79,
+    0.72
+  ],
+  "accuracy": 0.76,
+  "loss": 0.5,
+  "date_inserted": {
+    "$date": "2024-09-18T15:21:15.279Z"
+  },
+  "train_samples": 33203,
+  "val_samples": 7115,
+  "test_samples": 7116
+},{
+  "_id": {
+    "$oid": "66e8151858d8e8b4c3f9e044"
+  },
+  "name": "Diabetes_prediction",
+  "precision": [
+    0.75,
+    0.7
+  ],
+  "recall": [
+    0.66,
+    0.78
+  ],
+  "accuracy": 0.72,
+  "loss": 0.55,
+  "date_inserted": {
+    "$date": "2024-09-16T13:23:04.729Z"
+  },
+  "train_samples": 42870,
+  "val_samples": 9187,
+  "test_samples": 9187
+}]
