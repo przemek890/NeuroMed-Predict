@@ -473,8 +473,13 @@ resource "azurerm_container_group" "frontend" {
   ]
 }
 
-locals {
-  duckdns_domain = regex("https://(.*)\\.duckdns\\.org", var.domain_name)[1]
+variable "domain_name" {
+  type        = string
+  description = "Domain name in the format https://<your-subdomain>.duckdns.org"
+  validation {
+    condition     = can(regex("https://(.*)\\.duckdns\\.org", trimspace(var.domain_name)))
+    error_message = "domain_name must be in the format: https://<name>.duckdns.org"
+  }
 }
 
 resource "null_resource" "duckdns_update" {
