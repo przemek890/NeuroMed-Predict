@@ -1,0 +1,40 @@
+{
+    "restoreTerminals.terminals": [
+        {
+          "splitTerminals": [
+            {
+              "name": "init",
+              "commands": [
+                "python3 ip.py"
+              ]
+            }
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+                "name": "server",
+                "commands": [
+                    "cd backend",
+                    "test -d venv || python3.12 -m venv venv",
+                    "source venv/bin/activate",
+                    "pip install -r requirements.txt",
+                    "python3.12 local.py"
+                ]
+            },
+            {
+                "name": "client",
+                "commands": ["cd frontend", "npm install", "npm start"]
+            }
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "tests",
+              "commands": ["cd cypress", "npx cypress open"]
+            },
+          ]
+        }
+      ]
+    }

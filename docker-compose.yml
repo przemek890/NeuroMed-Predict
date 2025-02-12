@@ -1,20 +1,32 @@
 version: '3'
+
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "5001:5000"
+      - "5000:5000"
+    environment:
+      MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
+      GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
+      GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
+
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "3000:3000"
+    environment:
+      REACT_APP_DOMAIN: <<<YOUR_DOMAIN>>>
+    depends_on:
+      - backend
+
   tests:
     build:
       context: ./cypress
       dockerfile: Dockerfile
-
-
+    depends_on:
+      - backend
+      - frontend

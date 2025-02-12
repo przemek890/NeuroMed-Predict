@@ -22,6 +22,8 @@ COPY --from=builder /builder/.venv /app/.venv
 
 ENV MONGO_CONNECTION_STRING=$MONGO_CONNECTION_STRING
 
+RUN mkdir /SSL
+
 EXPOSE 5000
 
 ENV PATH="/app/.venv/bin:$PATH"

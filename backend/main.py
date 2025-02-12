@@ -21,7 +21,7 @@ __main__.Model_1 = Model_1
 __main__.Model_2 = Model_2
 
 app = Flask(__name__)
-cors_origins = os.getenv("DOMAIN", "")
+cors_origins = os.getenv("DOMAIN", "http://localhost:3000")
 CORS(app, resources={r"/*": {"origins": cors_origins}}, supports_credentials=True)
 
 

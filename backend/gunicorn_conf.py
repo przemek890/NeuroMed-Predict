@@ -2,6 +2,7 @@ import multiprocessing
 from dotenv import load_dotenv
 import secrets
 import os
+import base64
 
 bind = "0.0.0.0:5000"
 workers = multiprocessing.cpu_count() * 2 + 1
@@ -10,11 +11,10 @@ accesslog = "-"
 errorlog = "-"
 loglevel = "info"
 
-certfile = "/SSL/fullchain.pem"
-keyfile = "/SSL/privkey.pem"
+cert_path = "/SSL/fullchain.pem"
+key_path = "/SSL/privkey.pem"
 
 wsgi_app = "main:app"
-
 
 def on_starting(server):
     """Code executed once when Gunicorn master starts."""
