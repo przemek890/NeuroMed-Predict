@@ -484,11 +484,11 @@ resource "null_resource" "duckdns_update" {
   }
 
   provisioner "local-exec" {
-    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${local.duckdns_domain}&token=${var.duckdns_token}&clear=true\""
+    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${var.duckdns_domain}&token=${var.duckdns_token}&clear=true\""
   }
 
   provisioner "local-exec" {
-    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${local.duckdns_domain}&token=${var.duckdns_token}&ip=${azurerm_public_ip.gateway_ip.ip_address}\""
+    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${var.duckdns_domain}&token=${var.duckdns_token}&ip=${azurerm_public_ip.gateway_ip.ip_address}\""
   }
 }
 

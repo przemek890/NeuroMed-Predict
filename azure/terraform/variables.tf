@@ -51,6 +51,11 @@ variable "duckdns_token" {
   description = "Token API DuckDNS"
   type        = string
 }
+
+variable "duckdns_domain" {
+  description = "DuckDNS domain"
+  type        = string
+}
 variable "tests_image" {
   description = "Docker image for tests"
   type        = string
