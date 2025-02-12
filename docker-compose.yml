@@ -1,5 +1,6 @@
 version: '3'
 
+# TODO - descripe this one in proper README and the other approach to start app - based on directly pyhton/npm
 services:
   backend:
     build:

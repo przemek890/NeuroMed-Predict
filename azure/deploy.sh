@@ -9,6 +9,8 @@ if [ ! -f terraform.tfvars ]; then
   echo "Error: terraform.tfvars file not found. Exiting."
   exit 1
 fi
+
+# TODO - change to main branch
 git clone -b develop https://github.com/przemek890/NeuroMed-Predict.git
 mv terraform.tfvars NeuroMed-Predict/azure/terraform/
 cd NeuroMed-Predict/azure
