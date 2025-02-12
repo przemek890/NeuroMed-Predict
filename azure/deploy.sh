@@ -5,15 +5,22 @@ LOGS_DIR="logs"
 CONTAINER_NAME="test-container"
 RESOURCE_GROUP="tests"
 
-git clone https://github.com/przemek890/NeuroMed-Predict.git Medical_prediction && cd Medical_prediction/azure
+if [ ! -f terraform.tfvars ]; then
+  echo "Error: terraform.tfvars file not found. Exiting."
+  exit 1
+fi
+git clone https://github.com/przemek890/NeuroMed-Predict.git
+mv terraform.tfvars NeuroMed-Predict/azure/terraform/
+cd NeuroMed-Predict/azure
 
+pushd terraform
 SENDER_EMAIL=$(grep 'sender_email' terraform.tfvars | awk -F ' = ' '{print $2}' | tr -d '"')
 EMAIL_PASSWORD=$(grep 'email_password' terraform.tfvars | awk -F ' = ' '{print $2}' | tr -d '"')
 RECEIVER_EMAIL=$(grep 'receiver_email' terraform.tfvars | awk -F ' = ' '{print $2}' | tr -d '"')
 SMTP_SERVER=$(grep 'smtp_server' terraform.tfvars | awk -F ' = ' '{print $2}' | tr -d '"')
 STORAGE_ACCOUNT=$(grep 'test_storage_account_name' terraform.tfvars | awk -F ' = ' '{print $2}' | tr -d '"')
 
-pushd terraform
+
 terraform init
 terraform apply -auto-approve | tee ../deployment.log
 popd
