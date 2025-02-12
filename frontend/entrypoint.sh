@@ -15,4 +15,6 @@ else
     echo "No SSL key (SSL_KEY_BASE64) provided."
 fi
 
+source ./runtime-env.sh
+
 exec serve -s build --ssl-cert /SSL/fullchain.pem --ssl-key /SSL/privkey.pem
