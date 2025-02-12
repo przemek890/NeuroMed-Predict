@@ -83,7 +83,8 @@ const Heartdisease = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const domain = process.env.REACT_APP_DOMAIN;
+            // @ts-ignore
+            const domain = window.REACT_APP_DOMAIN;
             const response = await fetch(`${domain}:5000/api/create_1`, {
                 method: 'POST',
                 headers: {
