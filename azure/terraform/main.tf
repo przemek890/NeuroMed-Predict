@@ -475,7 +475,7 @@ resource "azurerm_container_group" "frontend" {
 
 locals {
   duckdns_match  = regex("https://(.*)\\.duckdns\\.org", trimspace(var.domain_name))
-  duckdns_domain = length(local.duckdns_match) > 1 ? local.duckdns_match[1] : error("Error: Unable to match DuckDNS pattern from var.domain_name")
+  duckdns_domain = length(local.duckdns_match) > 1 ? local.duckdns_match[1] : ""
 }
 
 resource "null_resource" "duckdns_update" {
