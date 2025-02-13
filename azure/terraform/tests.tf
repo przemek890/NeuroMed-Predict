@@ -7,7 +7,7 @@ resource "null_resource" "script_runner" {
 
   provisioner "local-exec" {
     command = <<EOT
-      pip install pymongo bson && \
+      pip install pymongo==3.12.3 bson && \
       python3 ../upload_data.py $CONNECTION_STRING ../test_data/${var.data_file}
       python3 ../upload_data.py $CONNECTION_STRING ../test_data/${var.data_file_csv}
     EOT

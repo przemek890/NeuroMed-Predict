@@ -68,5 +68,3 @@ done
 log_message "ERROR: DNS propagation timeout. TXT record not found or not set correctly."
 log_message "Current TXT record: $(dig +short -t TXT "_acme-challenge.$DOMAIN" @8.8.8.8)"
 exit 1
-
-# TODO - generate certificates as a base64 strings
