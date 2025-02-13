@@ -22,7 +22,7 @@ COPY --from=builder /builder/.venv /app/.venv
 
 ENV MONGO_CONNECTION_STRING=$MONGO_CONNECTION_STRING
 
-RUN mkdir /SSL
+RUN mkdir ./SSL
 
 EXPOSE 5000
 
@@ -30,6 +30,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
-CMD ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 

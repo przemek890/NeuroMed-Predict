@@ -12,6 +12,7 @@ services:
       MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
       GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
       GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
+      DOMAIN: <<<YOUR_DOMAIN>>>
 
   frontend:
     build:

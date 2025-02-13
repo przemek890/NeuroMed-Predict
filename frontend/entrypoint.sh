@@ -19,9 +19,11 @@ else
     has_ssl=false
 fi
 
+source ./runtime-env.sh
+
 if [ "$has_ssl" = true ]; then
-    source ./runtime-env.sh
-    exec serve -s build --ssl-cert /SSL/fullchain.pem --ssl-key /SSL/privkey.pem
+    echo "Starting app with SSL..."
+    exec serve -s build --ssl-cert "$CERT_FILE" --ssl-key "$KEY_FILE"
 else
     echo "No SSL certificates found, starting without SSL..."
     exec serve -s build
