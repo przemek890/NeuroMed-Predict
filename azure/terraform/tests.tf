@@ -1,5 +1,5 @@
 resource "null_resource" "script_runner" {
-  depends_on = [azurerm_container_group.frontend]
+  depends_on = [azurerm_application_gateway.app_gateway]
 
   triggers = {
     run_once = "initial_run"
@@ -8,8 +8,8 @@ resource "null_resource" "script_runner" {
   provisioner "local-exec" {
     command = <<EOT
       pip install pymongo bson && \
-      python3 upload_data.py $CONNECTION_STRING ${var.data_file}
-      python3 upload_data.py $CONNECTION_STRING ${var.data_file_csv}
+      python3 ../upload_data.py $CONNECTION_STRING ../test_data/${var.data_file}
+      python3 ../upload_data.py $CONNECTION_STRING ../test_data/${var.data_file_csv}
     EOT
 
     environment = {
@@ -17,7 +17,6 @@ resource "null_resource" "script_runner" {
     }
   }
 }
-
 
 resource "azurerm_resource_group" "tests" {
   name     = "tests"
@@ -63,7 +62,7 @@ resource "azurerm_container_group" "test_container" {
     memory = 4.0
 
     environment_variables = {
-      DOMAIN = var.domain_name
+      DOMAIN = "https://${var.duckdns_domain}.duckdns.org"
     }
 
     ports {

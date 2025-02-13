@@ -10,11 +10,7 @@ accesslog = "-"
 errorlog = "-"
 loglevel = "info"
 
-certfile = "/SSL/fullchain.pem"
-keyfile = "/SSL/privkey.pem"
-
 wsgi_app = "main:app"
-
 
 def on_starting(server):
     """Code executed once when Gunicorn master starts."""

@@ -132,7 +132,7 @@ resource "azurerm_application_gateway" "app_gateway" {
     port                        = 3000
     protocol                    = "Https"
     request_timeout             = 10
-    host_name                   = replace(var.domain_name, "https://", "")
+    host_name                   = "${var.duckdns_domain}.duckdns.org"
   }
 
   backend_http_settings {
@@ -141,7 +141,7 @@ resource "azurerm_application_gateway" "app_gateway" {
     port                        = 5000
     protocol                    = "Https"
     request_timeout             = 10
-    host_name                   = replace(var.domain_name, "https://", "")
+    host_name                   = "${var.duckdns_domain}.duckdns.org"
   }
 
   http_listener {
@@ -422,7 +422,7 @@ resource "azurerm_container_group" "backend" {
       MONGO_CONNECTION_STRING = azurerm_cosmosdb_account.mongo.primary_mongodb_connection_string
       GROQ_API_KEY            = var.groq_api_key
       GROQ_GPT_MODEL          = var.groq_gpt_model
-      DOMAIN                  = var.domain_name
+      DOMAIN                  = "https://${var.duckdns_domain}.duckdns.org"
       SSL_KEY_BASE64          = var.ssl_key_base64
       SSL_CERT_BASE64         = var.ssl_cert_base64
     }
@@ -457,7 +457,7 @@ resource "azurerm_container_group" "frontend" {
       protocol = "TCP"
     }
     environment_variables = {
-      REACT_APP_DOMAIN = var.domain_name
+      REACT_APP_DOMAIN = "https://${var.duckdns_domain}.duckdns.org"
       SSL_KEY_BASE64   = var.ssl_key_base64
       SSL_CERT_BASE64  = var.ssl_cert_base64
     }
@@ -473,21 +473,17 @@ resource "azurerm_container_group" "frontend" {
   ]
 }
 
-locals {
-  duckdns_domain = regex("https://(.*)\\.duckdns\\.org", var.domain_name)[1]
-}
-
 resource "null_resource" "duckdns_update" {
   triggers = {
     ip_address = azurerm_public_ip.gateway_ip.ip_address
   }
 
   provisioner "local-exec" {
-    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${local.duckdns_domain}&token=${var.duckdns_token}&clear=true\""
+    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${var.duckdns_domain}&token=${var.duckdns_token}&clear=true\""
   }
 
   provisioner "local-exec" {
-    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${local.duckdns_domain}&token=${var.duckdns_token}&ip=${azurerm_public_ip.gateway_ip.ip_address}\""
+    command = "curl --max-time 30 -k \"https://www.duckdns.org/update?domains=${var.duckdns_domain}&token=${var.duckdns_token}&ip=${azurerm_public_ip.gateway_ip.ip_address}\""
   }
 }
 

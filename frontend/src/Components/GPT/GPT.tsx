@@ -64,7 +64,8 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
           case 'doctor_contact':
             const searchDoctors = async () => {
               try {
-                const domain = process.env.REACT_APP_DOMAIN;
+                // @ts-ignore
+                const domain = window.REACT_APP_DOMAIN;
                 const response = await fetch(`${domain}:5000/api/search`, {
                   method: 'POST',
                   headers: {
@@ -176,7 +177,8 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
 
   const fetchSystemIntent = async (message: string) => {
     try {
-      const domain = process.env.REACT_APP_DOMAIN;
+      // @ts-ignore
+      const domain = window.REACT_APP_DOMAIN;
       const response = await fetch(`${domain}:5000/api/askGPT`, {
         method: 'POST',
         headers: {
@@ -233,7 +235,8 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
   
     const resetSession = async () => {
       try {
-        const domain = process.env.REACT_APP_DOMAIN;
+      // @ts-ignore
+      const domain = window.REACT_APP_DOMAIN;
         const response = await fetch(`${domain}:5000/api/session`, {
           method: 'POST',
           credentials: 'include',
@@ -295,7 +298,8 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
 
   const fetchFromServer = async (prompt: string, fileName: string, fileContent: string) => {
     try {
-      const domain = process.env.REACT_APP_DOMAIN;
+      // @ts-ignore
+      const domain = window.REACT_APP_DOMAIN;
       const response = await fetch(`${domain}:5000/api/askGPT`, {
         method: 'POST',
         headers: {

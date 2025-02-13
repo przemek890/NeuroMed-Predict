@@ -21,11 +21,15 @@ __main__.Model_1 = Model_1
 __main__.Model_2 = Model_2
 
 app = Flask(__name__)
-cors_origins = os.getenv("DOMAIN", "")
+cors_origins = os.getenv("DOMAIN")
+if not cors_origins:
+    raise ValueError("DOMAIN environment variable must be set")
 CORS(app, resources={r"/*": {"origins": cors_origins}}, supports_credentials=True)
 
 
-connection: str = os.getenv('MONGO_CONNECTION_STRING',"")
+connection: str = os.getenv('MONGO_CONNECTION_STRING')
+if not connection:
+    raise ValueError("MONGO_CONNECTION_STRING environment variable must be set")
 client: MongoClient = MongoClient(connection)
 
 db = client["Medical_prediction"]

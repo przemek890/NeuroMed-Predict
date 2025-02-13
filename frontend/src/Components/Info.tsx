@@ -43,7 +43,8 @@ const Info = (): JSX.Element => {
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
-    const domain = process.env.REACT_APP_DOMAIN;
+    // @ts-ignore
+    const domain = window.REACT_APP_DOMAIN;
     fetch(`${domain}:5000/api/get_data`)
       .then(response => {
         if (!response.ok) {

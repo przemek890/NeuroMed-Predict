@@ -43,7 +43,8 @@ const App = () => {
       useEffect(() => {
         const initializeSession = async () => {
           try {
-             const domain = process.env.REACT_APP_DOMAIN;
+             // @ts-ignore
+             const domain = window.REACT_APP_DOMAIN;
              const response = await fetch(`${domain}:5000/api/session`, {
               method: 'POST',
               credentials: 'include',
