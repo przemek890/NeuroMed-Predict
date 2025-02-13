@@ -1,9 +1,8 @@
 # Medical Prediction - Deployment Guide
 
-To deploy the application locally, you have three options:
+To deploy the application locally, you have two options:
 - Use VSCode extension for automated terminal setup or do it manually
 - Run both services together using Docker Compose
-- Run in Azure Cloud for production deployment
 
 Below are the details for each method:
 
