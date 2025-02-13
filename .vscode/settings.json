@@ -3,16 +3,6 @@
         {
           "splitTerminals": [
             {
-              "name": "init",
-              "commands": [
-                "python3 ip.py"
-              ]
-            }
-          ]
-        },
-        {
-          "splitTerminals": [
-            {
                 "name": "server",
                 "commands": [
                     "cd backend",
@@ -29,12 +19,17 @@
           ]
         },
         {
-          "splitTerminals": [
+            "splitTerminals": [
             {
               "name": "tests",
-              "commands": ["cd cypress", "npx cypress open"]
-            },
-          ]
+              "commands": [
+              "python3 domain.py",
+              "cd cypress",
+              "npm install cypress --save-dev",
+              "npx cypress open"
+              ]
+            }
+            ]
         }
       ]
     }

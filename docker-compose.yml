@@ -1,6 +1,16 @@
-version: '3'
+x-REACT_APP_DOMAIN: &REACT_APP_DOMAIN
+    REACT_APP_DOMAIN: <<<YOUR_DOMAIN>>>
 
-# TODO - descripe this one in proper README and the other approach to start app - based on directly pyhton/npm
+x-MONGO_CONNECTION_STRING: &MONGO_CONNECTION_STRING
+    MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
+
+x-GROQ_API_KEY: &GROQ_API_KEY
+    GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
+
+x-GROQ_GPT_MODEL: &GROQ_GPT_MODEL
+    GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
+####################################
+version: '3'
 services:
   backend:
     build:
@@ -9,11 +19,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
-      GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
-      GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
-      DOMAIN: <<<YOUR_DOMAIN>>>
-
+      <<: [*REACT_APP_DOMAIN, *MONGO_CONNECTION_STRING, *GROQ_API_KEY, *GROQ_GPT_MODEL]
   frontend:
     build:
       context: ./frontend
@@ -21,7 +27,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_DOMAIN: <<<YOUR_DOMAIN>>>
+      <<: *REACT_APP_DOMAIN
     depends_on:
       - backend
 
@@ -32,3 +38,5 @@ services:
     depends_on:
       - backend
       - frontend
+    environment:
+      <<: *REACT_APP_DOMAIN

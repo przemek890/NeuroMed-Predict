@@ -21,10 +21,11 @@ __main__.Model_1 = Model_1
 __main__.Model_2 = Model_2
 
 app = Flask(__name__)
-cors_origins = os.getenv("DOMAIN")
-if not cors_origins:
-    raise ValueError("DOMAIN environment variable must be set")
-CORS(app, resources={r"/*": {"origins": cors_origins}}, supports_credentials=True)
+cors_origins = os.getenv("REACT_APP_DOMAIN", "http://localhost:3000")
+if cors_origins.startswith('https'):
+    CORS(app, origins=[cors_origins], supports_credentials=True)
+else:
+    CORS(app, supports_credentials=True)
 
 
 connection: str = os.getenv('MONGO_CONNECTION_STRING')

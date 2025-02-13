@@ -3,8 +3,8 @@
 TOKEN_DUCKDNS=$(grep 'duckdns_token' ../terraform/terraform.tfvars | cut -d '=' -f 2 | tr -d ' "')
 WAIT_TIME=300
 INTERVAL=5
-DOMAIN=$(grep 'domain_name' ../terraform/terraform.tfvars | cut -d '=' -f 2 | tr -d ' "')
-DOMAIN=$(echo "$DOMAIN" | sed 's~https://~~')
+
+DOMAIN=$(grep 'duckdns_domain' ../terraform/terraform.tfvars | cut -d '=' -f 2 | tr -d ' "')
 LOGFILE="/tmp/certbot_output.log"
 MAX_RETRIES=3
 CURL_TIMEOUT=10
