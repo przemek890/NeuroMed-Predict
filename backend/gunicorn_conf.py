@@ -10,9 +10,6 @@ accesslog = "-"
 errorlog = "-"
 loglevel = "info"
 
-cert_path = "./SSL/fullchain.pem"
-key_path = "./SSL/privkey.pem"
-
 wsgi_app = "main:app"
 
 def on_starting(server):

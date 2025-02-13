@@ -25,7 +25,7 @@ COPY --from=builder /builder/build ./build
 COPY --from=builder /builder/runtime-env.sh ./
 COPY --from=builder /builder/entrypoint.sh ./
 
-RUN mkdir /SSL
+RUN mkdir ./SSL
 
 EXPOSE 3000
 

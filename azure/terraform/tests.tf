@@ -1,5 +1,5 @@
 resource "null_resource" "script_runner" {
-  depends_on = [azurerm_container_group.frontend]
+  depends_on = [azurerm_application_gateway.app_gateway]
 
   triggers = {
     run_once = "initial_run"
@@ -17,7 +17,6 @@ resource "null_resource" "script_runner" {
     }
   }
 }
-
 
 resource "azurerm_resource_group" "tests" {
   name     = "tests"
