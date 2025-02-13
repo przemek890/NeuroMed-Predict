@@ -2,7 +2,6 @@
 
 AI-powered medical screening and consultation system using machine learning models and LLMs.
 
----
 
 ## Key Project Components
 1. Cardiovascular risk assessment using MLP architecture
