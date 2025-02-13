@@ -63,7 +63,7 @@ resource "azurerm_container_group" "test_container" {
     memory = 4.0
 
     environment_variables = {
-      DOMAIN = var.domain_name
+      DOMAIN = "https://${var.duckdns_domain}.duckdns.org"
     }
 
     ports {

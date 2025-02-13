@@ -43,15 +43,10 @@ variable "location" {
   description = "Azure location"
   type        = string
 }
-variable "domain_name" {
-  description = "Domain name"
-  type        = string
-}
 variable "duckdns_token" {
   description = "Token API DuckDNS"
   type        = string
 }
-
 variable "duckdns_domain" {
   description = "DuckDNS domain"
   type        = string
