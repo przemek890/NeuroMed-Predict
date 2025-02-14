@@ -68,7 +68,9 @@ To access the deployment logs and test results, check the mailbox of the email a
 - Static page with test results
 - Videos showing the test process
 
+![Mailbox](doc/files/mailbox.png)
 ![Tests Report](doc/files/mochawesome.png)
+![Tests](doc/files/test.png)
 
 ## 3. Rollback the Deployment
 
