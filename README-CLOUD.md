@@ -113,7 +113,7 @@ sudo base64 /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem
 sudo openssl pkcs12 -export -out certificate.pfx \
 -inkey /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem \
 -in /etc/letsencrypt/live/<<<DOMAIN>>>/fullchain.pem
-base64 certificate.pfx
+sudo base64 certificate.pfx
 ```
 
 
