@@ -107,7 +107,6 @@ sudo base64 /etc/letsencrypt/live/<<<DOMAIN>>>/fullchain.pem
 sudo base64 /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem
 ```
 
-
 ##### 3.0. Merge certificates for cloud deployment:
 ```bash
 sudo openssl pkcs12 -export -out certificate.pfx \
@@ -116,10 +115,14 @@ sudo openssl pkcs12 -export -out certificate.pfx \
 sudo base64 certificate.pfx
 ```
 
+##### 4.0. To verify the certificates, run the following command:
+```bash
+sudo certbot certificates  
+```
 
 *Note: During this step, you'll be prompted to set a PFX password*
 
-##### 4.0. Update your `terraform.tfvars` with the generated values:
+##### 5.0. Update your `terraform.tfvars` with the generated values:
 ```hcl
 ssl_certificate_password
 ssl_key_base64
