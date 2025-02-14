@@ -96,13 +96,13 @@ brew install openssl
 ```
 ##### 2.0. Set your DOMAIN TOKEN_DUCKDNS:
 
-[**azure/hooks/manual-auth-hook.sh**](azure/hooks/manual-auth-hook.sh#L3-L4):
+[**azure/hooks/manual-auth-hook.sh**](azure/hooks/manual-auth-hook.sh#L3-L4)
 ```bash
 TOKEN_DUCKDNS="your-token"
 DOMAIN="your-domain"
 ```
 
-[**azure/hooks/manual-cleanup-hook.sh**](azure/hooks/manual-cleanup-hook.sh#L3-L4):
+[**azure/hooks/manual-cleanup-hook.sh**](azure/hooks/manual-cleanup-hook.sh#L3-L4)
 ```bash
 TOKEN_DUCKDNS="your-token"
 DOMAIN="your-domain"
