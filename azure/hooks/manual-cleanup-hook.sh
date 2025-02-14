@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TOKEN_DUCKDNS=$(grep 'duckdns_token' ../terraform/terraform.tfvars | cut -d '=' -f 2 | tr -d ' "')
-DOMAIN=$(grep 'duckdns_domain' ../terraform/terraform.tfvars | cut -d '=' -f 2 | tr -d ' "')
+TOKEN_DUCKDNS=<<<YOUR_DUCKDNS_TOKEN>>>
+DOMAIN=<<<YOUR_DUCKDNS_DOMAIN>>>
 
 RESPONSE=$(curl -s "https://www.duckdns.org/update?domains=$DOMAIN&token=$TOKEN_DUCKDNS&txt=&clear=true")
 

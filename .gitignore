@@ -16,3 +16,7 @@ venv/
 terraform.tfvars
 backend/.env
 frontend/.env
+*.pem
+*.key
+*.pub
+*.pfx

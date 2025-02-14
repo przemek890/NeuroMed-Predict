@@ -94,35 +94,48 @@ You can obtain SSL certificates through Let's Encrypt for 90 days. For detailed 
 brew install certbot
 brew install openssl
 ```
+##### 2.0. Set your DOMAIN TOKEN_DUCKDNS:
 
-##### 2.0. Generate certificates:
+[**azure/hooks/manual-auth-hook.sh**](azure/hooks/manual-auth-hook.sh#L3-L4):
+```bash
+TOKEN_DUCKDNS="your-token"
+DOMAIN="your-domain"
+```
+
+[**azure/hooks/manual-cleanup-hook.sh**](azure/hooks/manual-cleanup-hook.sh#L3-L4):
+```bash
+TOKEN_DUCKDNS="your-token"
+DOMAIN="your-domain"
+```
+
+##### 3.0. Generate certificates:
 ```bash
 ## DOMAIN e.g. medical-prediction.duckdns.org
 sudo certbot --manual --preferred-challenges dns certonly -d <<<DOMAIN>>> --manual-auth-hook ./manual-auth-hook.sh
 ```
 
-##### 2.0. Base64 encode certificates:
+##### 4.0. Base64 encode certificates:
 ```bash
-sudo base64 /etc/letsencrypt/live/<<<DOMAIN>>>/fullchain.pem
-sudo base64 /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem
+sudo base64 -i /etc/letsencrypt/live/<<<DOMAIN>>>/fullchain.pem
+sudo base64 -i /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem
 ```
 
-##### 3.0. Merge certificates for cloud deployment:
+##### 5.0. Merge certificates for cloud deployment:
 ```bash
 sudo openssl pkcs12 -export -out certificate.pfx \
--inkey /etc/letsencrypt/live/<<<DOMAIN>>>/privkey.pem \
--in /etc/letsencrypt/live/<<<DOMAIN>>>/fullchain.pem
-sudo base64 certificate.pfx
+-inkey /etc/letsencrypt/live/medical-prediction.duckdns.org/privkey.pem \
+-in /etc/letsencrypt/live/medical-prediction.duckdns.org/fullchain.pem
+sudo base64 -i certificate.pfx
 ```
 
-##### 4.0. To verify the certificates, run the following command:
+##### 6.0. To verify the certificates, run the following command:
 ```bash
 sudo certbot certificates  
 ```
 
 *Note: During this step, you'll be prompted to set a PFX password*
 
-##### 5.0. Update your `terraform.tfvars` with the generated values:
+##### 7.0. Update your `terraform.tfvars` with the generated values:
 ```hcl
 ssl_certificate_password
 ssl_key_base64
