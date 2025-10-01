@@ -5,31 +5,32 @@
             {
                 "name": "server",
                 "commands": [
-                    "cd backend",
-                    "test -d venv || python3.12 -m venv venv",
-                    "source venv/bin/activate",
-                    "pip install -r requirements.txt",
-                    "python3.12 local.py"
+                  "python3 domain.py",
+                  "cd backend",
+                  "test -d venv || python3.12 -m venv venv",
+                  "source venv/bin/activate",
+                  "pip install -r requirements.txt",
+                  "python3.12 local.py"
                 ]
             },
             {
                 "name": "client",
-                "commands": ["cd frontend", "npm install", "npm start"]
+                "commands": ["cd frontend", "npm install --legacy-peer-deps", "npm start"]
             }
           ]
-        },
-        {
-            "splitTerminals": [
-            {
-              "name": "tests",
-              "commands": [
-              "python3 domain.py",
-              "cd cypress",
-              "npm install cypress --save-dev",
-              "npx cypress open"
-              ]
-            }
-            ]
         }
+        // {
+        //     "splitTerminals": [
+        //     {
+        //       "name": "tests",
+        //       "commands": [
+        //       "python3 domain.py",
+        //       "cd cypress",
+        //       "npm install cypress --save-dev",
+        //       "npx cypress open"
+        //       ]
+        //     }
+        //     ]
+        // }
       ]
     }

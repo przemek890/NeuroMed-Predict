@@ -23,6 +23,8 @@ export MONGO_CONNECTION_STRING="YOUR_MONGO_CONNECTION_STRING" # e.g. mongodb+srv
 export GROQ_API_KEY="YOUR_GROQ_API_KEY>"                      # e.g. gsk_...
 export GROQ_GPT_MODEL="YOUR_MODEL_NAME"                       # e.g. llama-3.3-70b-versatile
 export REACT_APP_DOMAIN="YOUR_DOMAIN"                         # e.g. http://localhost or http://192.168...
+export GOOGLE_API_KEY=<<<GOOGLE_API_KEY>>>
+export GOOGLE_CX=<<<GOOGLE_CX>>>
 ```
 
 Then reload your shell configuration:
@@ -73,20 +75,29 @@ Verify that you have `docker --version` and `docker-compose --version`.
 
 ##### 2.1. Environment Variables Setup
 
-Configure environment variables in [`docker-compose.yml`](docker-compose.yml#L1-L11):
+Configure environment variables in [`docker-compose.yml`](docker-compose.yml#L1-L17):
 
 ```yaml
 x-REACT_APP_DOMAIN: &REACT_APP_DOMAIN
-    REACT_APP_DOMAIN: <<<YOUR_DOMAIN>>>
+  REACT_APP_DOMAIN: ${REACT_APP_DOMAIN}
+
+x-REACT_APP_DOMAIN: &REACT_APP_DOMAIN
+  REACT_APP_DOMAIN: ${REACT_APP_DOMAIN}
 
 x-MONGO_CONNECTION_STRING: &MONGO_CONNECTION_STRING
-    MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
+  MONGO_CONNECTION_STRING: ${MONGO_CONNECTION_STRING}
 
 x-GROQ_API_KEY: &GROQ_API_KEY
-    GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
+  GROQ_API_KEY: ${GROQ_API_KEY} 
+
+x-GOOGLE_API_KEY: &GOOGLE_API_KEY
+  GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+
+x-GOOGLE_CX: &GOOGLE_CX
+  GOOGLE_CX: ${GOOGLE_CX}
 
 x-GROQ_GPT_MODEL: &GROQ_GPT_MODEL
-    GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
+  GROQ_GPT_MODEL: ${GROQ_GPT_MODEL}
 ```
 
 Replace the placeholder values (<<<...>>>) with your actual configuration.

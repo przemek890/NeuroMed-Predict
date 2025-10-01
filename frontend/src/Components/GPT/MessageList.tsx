@@ -28,12 +28,74 @@ const MessageList: React.FC<MessageListProps> = ({
 }) => {
   const theme = useTheme();
 
+  const isValidJSON = (str: string): boolean => {
+    try {
+      JSON.parse(str.trim());
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const renderMessage = (message: Message, index: number) => {
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
     const parts: { type: 'text' | 'code'; content: string; language?: string }[] = [];
     let lastIndex = 0;
     let match: RegExpExecArray | null;
 
+    // Sprawdź czy cała wiadomość to JSON (dla odpowiedzi z prefiksem $)
+    if (message.type === 'bot' && isValidJSON(message.content)) {
+      return (
+        <Box
+          key={index}
+          sx={{
+            display: 'flex',
+            mb: 2,
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start'
+          }}
+        >
+          <Avatar sx={{ width: '30px', height: '30px', mr: 1, bgcolor: 'primary.main' }}>
+            <FaCommentMedical />
+          </Avatar>
+
+          <Box sx={{
+            flexGrow: 1,
+            maxWidth: '85%',
+          }}>
+            <Box sx={{ position: 'relative', width: '100%', mb: 1 }}>
+              <IconButton
+                onClick={() => handleCopyCode(message.content)}
+                sx={{
+                  position: 'absolute',
+                  top: 5,
+                  right: 5,
+                  color: 'white',
+                  backgroundColor: 'rgba(0,0,0,0.3)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                  },
+                }}
+              >
+                <ContentCopyIcon fontSize="small" />
+              </IconButton>
+              <SyntaxHighlighter
+                language="json"
+                style={theme.palette.mode === 'dark' ? vscDarkPlus : vs}
+                customStyle={{
+                  margin: 0,
+                  borderRadius: '4px',
+                  maxWidth: '100%',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#1E1E1E' : '#F8F8F8',
+                }}
+              >
+                {JSON.stringify(JSON.parse(message.content), null, 2)}
+              </SyntaxHighlighter>
+            </Box>
+          </Box>
+        </Box>
+      );
+    }
     while ((match = codeBlockRegex.exec(message.content)) !== null) {
       if (match.index > lastIndex) {
         parts.push({

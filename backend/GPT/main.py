@@ -1,7 +1,7 @@
 from typing import Generator, Optional, Union, Any
 import groq
 from pymongo import collection
-from .chat_handler import ask_gpt, ask_gpt_for_intent
+from .chat_handler import ask_gpt, gpt_search, ask_gpt_for_intent
 from .similiarity import QueryValidator
 from .translator import translate_message
 
@@ -36,11 +36,11 @@ def handle_message(
             yield translated_message
             return
 
-        if QueryValidator.is_query_allowed(translated_message):
-            yield "***ERROR***: Illegal query"
-            return
-
         if translated_message.startswith('@'):
+            message_content: str = translated_message[1:].strip()
+            for chunk in gpt_search(message_content, client, original_language, flags):
+                yield chunk
+        elif translated_message.startswith('$'):
             message_content: str = translated_message[1:].strip()
             json_response: str = ask_gpt_for_intent(message_content, client, flags)
             yield json_response

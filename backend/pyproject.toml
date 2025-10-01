@@ -25,6 +25,8 @@ jsonschema = "*"
 immutables = "*"
 PyJWT = "*"
 python-dotenv = "*"
+BeautifulSoup4 = "*"
+flask_session = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

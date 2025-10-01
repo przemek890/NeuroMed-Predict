@@ -1,7 +1,6 @@
 import subprocess
 import os
 
-
 def get_ip_address(interface='en0'):
     result = subprocess.run(
         ['ifconfig', interface],

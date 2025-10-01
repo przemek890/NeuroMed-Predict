@@ -162,7 +162,9 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
 
       setConversation(prev => [...prev, { type: 'user', content: userMessage }]);
 
-      if (inputText.trim().startsWith('@')) {
+      if (inputText.trim().startsWith('$')) {
+        fetchSystemIntent(inputText.trim());
+      } else if (inputText.trim().startsWith('@')) {
         fetchSystemIntent(inputText.trim());
       } else {
         fetchFromServer(inputText.trim(), fileName, fileContent);
@@ -201,7 +203,14 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
             alert: true
           }]);
         } else {
-          handleSystemIntent(result);
+          setConversation(prev => [...prev, {
+            type: 'bot',
+            content: result
+          }]);
+          
+          if (message.startsWith('$')) {
+            handleSystemIntent(result);
+          }
         }
       } else {
         throw new Error(t('system_command_failed'));
@@ -360,7 +369,7 @@ const GPT: React.FC<GPTProps> = ({ onThemeChange, onLanguageChange, sessionToken
         const chunk = decoder.decode(value, { stream: true });
         botMessage += chunk;
 
-        const containsError = botMessage.includes("***ERROR***:");
+        const containsError = botMessage.includes("***ERROR***");
         setConversation(prev => {
           const updatedConversation = [...prev];
           if (containsError) {

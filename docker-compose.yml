@@ -1,14 +1,20 @@
 x-REACT_APP_DOMAIN: &REACT_APP_DOMAIN
-    REACT_APP_DOMAIN: <<<YOUR_DOMAIN>>>
+  REACT_APP_DOMAIN: ${REACT_APP_DOMAIN}
 
 x-MONGO_CONNECTION_STRING: &MONGO_CONNECTION_STRING
-    MONGO_CONNECTION_STRING: <<<YOUR_MONGO_CONNECTION_STRING>>>
+  MONGO_CONNECTION_STRING: ${MONGO_CONNECTION_STRING}
 
 x-GROQ_API_KEY: &GROQ_API_KEY
-    GROQ_API_KEY: <<<YOUR_GROQ_API_KEY>>>
+  GROQ_API_KEY: ${GROQ_API_KEY} 
+
+x-GOOGLE_API_KEY: &GOOGLE_API_KEY
+  GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+
+x-GOOGLE_CX: &GOOGLE_CX
+  GOOGLE_CX: ${GOOGLE_CX}
 
 x-GROQ_GPT_MODEL: &GROQ_GPT_MODEL
-    GROQ_GPT_MODEL: <<<YOUR_MODEL_NAME>>>
+  GROQ_GPT_MODEL: ${GROQ_GPT_MODEL}
 ####################################
 version: '3'
 services:
@@ -19,7 +25,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      <<: [*REACT_APP_DOMAIN, *MONGO_CONNECTION_STRING, *GROQ_API_KEY, *GROQ_GPT_MODEL]
+      <<: [*REACT_APP_DOMAIN,*MONGO_CONNECTION_STRING,*GROQ_API_KEY,*GOOGLE_API_KEY,*GOOGLE_CX,*GROQ_GPT_MODEL]
   frontend:
     build:
       context: ./frontend
@@ -31,12 +37,12 @@ services:
     depends_on:
       - backend
 
-  tests:
-    build:
-      context: ./cypress
-      dockerfile: Dockerfile
-    depends_on:
-      - backend
-      - frontend
-    environment:
-      <<: *REACT_APP_DOMAIN
+  # tests:
+  #   build:
+  #     context: ./cypress
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - backend
+  #     - frontend
+  #   environment:
+  #     <<: *REACT_APP_DOMAIN

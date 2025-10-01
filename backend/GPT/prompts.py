@@ -28,31 +28,6 @@ class MedicalPrompter:
         Processes and formats file-related content for inclusion in the AI response context.
     """
 
-
-    @staticmethod
-    def get_summary_prompt(user_message: str, bot_message: str) -> str:
-        """
-        Creates a prompt for summarizing the interaction between user and bot.
-
-        Args:
-            user_message (str): The message from the user
-            bot_message (str): The response from the bot
-
-        Returns:
-            str: Formatted prompt for generating a summary
-        """
-        prompt = (
-            f"Task: Summarize the interaction in 4-5 sentences in English. Focus only on essential details needed by the bot for context. Include:\n"
-            f"- Main question/topic discussed\n"
-            f"- Relevant medical, technical, or domain-specific terms\n"
-            f"- Solutions, code snippets, or technical steps provided\n"
-            f"- Critical context required for future interactions\n\n"
-            f"User's message: {user_message}\n"
-            f"Assistant's response: {bot_message}\n\n"
-            f"Note: The summary should exclude redundant details and focus only on key points for bot understanding. Always use English."
-        )
-        return prompt
-
     @staticmethod
     def get_latest_records(collection: collection.Collection, session_id: str, word_limit: int = 3000) -> List[Dict]:
         """
@@ -66,11 +41,11 @@ class MedicalPrompter:
         Returns:
              str: A string containing concatenated user and bot messages from recent conversations
         """
-        query = {"session_id": session_id}
-        
-        records_list = list(collection.find(query))
-        
-        records = sorted(records_list, key=lambda x: x.get("date_added", datetime.datetime.min), reverse=True)
+        records = list(collection.aggregate([
+            {"$match": {"session_id": session_id}},
+            {"$sort": {"date_added": -1}},
+            {"$limit": 15}
+        ]))
         
         records_text = ""
         total_words = 0
@@ -98,6 +73,7 @@ class MedicalPrompter:
             - "coding_rules"
             - "file_context_rules"
             - "intent_detection"
+            - "search_rules"
             - "test"
         :return: A formatted string containing the rules.
         """
@@ -130,7 +106,7 @@ class MedicalPrompter:
             ],
             "file_context_rules": [
                 "Remember to use the file content only when it is relevant to health or medical topics.",
-                "Use the information provided in the file according to the user’s instructions."
+                "Use the information provided in the file according to the user's instructions."
             ],
             "intent_detection": [
                 "Analyze the intent of user_message.",
@@ -152,14 +128,22 @@ class MedicalPrompter:
                 "Ensure that 'medical_field', 'name', 'street', and 'city' are in the Polish language, stored in lowercase, and include Polish characters (e.g., ą, ć, ę, ł, ń, ó, ś, ź, ż).",
                 "The value of 'medical_field' must be a noun representing a specific medical field, such as 'kardiologia' (cardiology), 'chirurgia' (surgery), or 'pediatria' (pediatrics).",
             ],
+            "search_rules": [
+                "Based on the query ***USER MESSAGE***, create a summary of the search results.",
+                "Use for this purpose the **SEARCH RESULTS** section of the response and your knowledge of the topic.",
+            ],
             "test": [
                 "Model Testing Principle"
             ],
         }
 
-        pattern: str = SECRET_PATTERNS[
-            ["general_principles", "security_rules", "coding_rules", "file_context_rules", "intent_detection", "test"].index(rule_type)
-        ]
+        # Zaktualizowana lista typów reguł - dodano "search_rules"
+        rule_types = ["general_principles", "security_rules", "coding_rules", "file_context_rules", "intent_detection", "search_rules", "test"]
+        
+        if rule_type not in rule_types:
+            raise ValueError(f"Invalid rule_type: {rule_type}. Valid types: {rule_types}")
+
+        pattern: str = SECRET_PATTERNS[rule_types.index(rule_type)]
 
         return "\n".join(f"{i + 1}. {pattern} {rule}" for i, rule in enumerate(rules[rule_type]))
 

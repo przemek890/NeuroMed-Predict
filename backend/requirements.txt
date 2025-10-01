@@ -16,3 +16,5 @@ jsonschema
 immutables
 PyJWT
 python-dotenv
+flask_session
+BeautifulSoup4

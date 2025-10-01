@@ -13,11 +13,11 @@ def generate_secret_pattern(length: int = 15) -> str:
     characters: str = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
 
-def generate_secret_patterns(count: int = 6) -> List[str]:
+def generate_secret_patterns(count: int = 7) -> List[str]:
     """
     Generates a list of random alphanumeric secret patterns.
 
-    :param count: The number of patterns to generate. Default is 6.
+    :param count: The number of patterns to generate. Default is 7.
     :return: A list of randomly generated secret pattern strings.
     """
     return [generate_secret_pattern() for _ in range(count)]

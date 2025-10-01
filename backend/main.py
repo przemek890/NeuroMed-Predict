@@ -11,9 +11,11 @@ from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from pymongo import MongoClient, collection
 from torch import Tensor
-from GPT.chat_handler import summarize_user_and_bot as summarize_conversation
-from tools import stream_response, generate_jwt, require_valid_token
 import __main__
+
+from GPT.tools import stream_response
+from tools import generate_jwt, require_valid_token
+
 from Models.net.predict_1 import Model_1
 from Models.net.predict_2 import Model_2
 """"""""""""""""""""""""""""""""""""""""""""

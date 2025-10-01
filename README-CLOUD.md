@@ -35,6 +35,8 @@ email_password                   =  # Password for sender email
 receiver_email                   =  # Email to receive deployment logs
 SAS_expiry                       =  # SAS token expiry date
 groq_gpt_model                   =  # Groq LLM model
+google_api_key                   =  # Your Google Custom Search API key
+google_cx                        =  # Your Google Custom Search Engine ID
 ```
 
 **Optional variables (you can use below defaults):**
@@ -176,3 +178,7 @@ sender_email
 email_password 
 receiver_email
 ```
+
+- https://console.cloud.google.com/apis/api/customsearch.googleapis.com
+google_api_key
+google_cx

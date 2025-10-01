@@ -422,6 +422,8 @@ resource "azurerm_container_group" "backend" {
       MONGO_CONNECTION_STRING = azurerm_cosmosdb_account.mongo.primary_mongodb_connection_string
       GROQ_API_KEY            = var.groq_api_key
       GROQ_GPT_MODEL          = var.groq_gpt_model
+      GOOGLE_API_KEY          = var.google_api_key
+      GOOGLE_CX               = var.google_cx
       REACT_APP_DOMAIN        = "https://${var.duckdns_domain}.duckdns.org"
       SSL_KEY_BASE64          = var.ssl_key_base64
       SSL_CERT_BASE64         = var.ssl_cert_base64

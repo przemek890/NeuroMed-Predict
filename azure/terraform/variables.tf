@@ -87,3 +87,11 @@ variable "data_file_csv" {
   description = "Data file CSV"
   type        = string
 }
+variable "google_api_key" {
+  description = "Your Google Custom Search API key"
+  type
+}
+variable "google_cx" {
+  description = "Your Google Custom Search Engine ID"
+  type        = string
+}
