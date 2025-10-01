@@ -35,6 +35,10 @@ def handle_message(
         if "***ERROR***: Translation error" in translated_message:
             yield translated_message
             return
+        
+        if QueryValidator.is_query_allowed(translated_message):
+            yield "***ERROR***: Illegal query"
+            return
 
         if translated_message.startswith('@'):
             message_content: str = translated_message[1:].strip()
